@@ -1,4 +1,4 @@
-package com.example.mads4001_project
+package com.example.mads4001_project.models
 
 class Owner(
     val name: String,
