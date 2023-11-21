@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.example.mads4001_project"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.example.mads4001_project"
@@ -40,6 +40,7 @@ android {
 
 dependencies {
 
+    implementation ("androidx.cardview:cardview:1.0.0")
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.10.0")
