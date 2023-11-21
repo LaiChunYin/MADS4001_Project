@@ -1,5 +1,6 @@
 package com.example.mads4001_project
 
+import PropertyAdapter
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -18,7 +19,7 @@ class MainActivity : AppCompatActivity() {
 
         properties = initializeProperties()
 
-        propertyAdapter = PropertyAdapter(properties)
+        propertyAdapter = PropertyAdapter()  // Use the updated adapter
         binding.propertiesRecyclerView.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
             adapter = propertyAdapter
@@ -30,12 +31,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun performSearch(query: String) {
-        Log.d("MainActivity", "Searching for: $query")
         val filteredProperties = properties.filter { property ->
             property.matchesQuery(query)
         }
-        Log.d("MainActivity", "Found ${filteredProperties.size} properties")
-        propertyAdapter.updateProperties(filteredProperties)
+        propertyAdapter.setProperties(filteredProperties)
     }
 
 

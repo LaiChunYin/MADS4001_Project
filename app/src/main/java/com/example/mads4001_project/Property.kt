@@ -1,6 +1,5 @@
 package com.example.mads4001_project
 
-import android.util.Log
 
 class Property(
     val type: String,
@@ -26,10 +25,6 @@ class Property(
                 city.lowercase().contains(lowerCaseQuery) ||
                 postalCode.lowercase().contains(lowerCaseQuery) ||
                 matchesNumericQuery(lowerCaseQuery)
-
-        if (matchFound) {
-            Log.d("Property", "Match found for query '$query': $this")
-        }
 
         return matchFound
     }

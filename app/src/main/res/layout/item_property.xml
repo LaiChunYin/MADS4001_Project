@@ -26,8 +26,6 @@
                 android:layout_height="200dp"
                 android:scaleType="centerCrop" />
 
-            <!-- Replace with a proper drawable resource -->
-
             <!-- TextView for property address -->
             <TextView
                 android:id="@+id/propertyAddressTextView"
