@@ -1,5 +1,7 @@
 package com.example.mads4001_project
 
+import android.util.Log
+
 class Property(
     val type: String,
     val owner: Owner,
@@ -11,19 +13,27 @@ class Property(
     val address: String,
     val city: String,
     val postalCode: String,
+    val imageURL: String,
     val availableForRent: Boolean
 ) {
     fun matchesQuery(query: String): Boolean {
         val lowerCaseQuery = query.lowercase()
 
-        return type.lowercase().contains(lowerCaseQuery) ||
+        val matchFound = type.lowercase().contains(lowerCaseQuery) ||
                 description.lowercase().contains(lowerCaseQuery) ||
                 owner.name.lowercase().contains(lowerCaseQuery) ||
                 address.lowercase().contains(lowerCaseQuery) ||
                 city.lowercase().contains(lowerCaseQuery) ||
                 postalCode.lowercase().contains(lowerCaseQuery) ||
                 matchesNumericQuery(lowerCaseQuery)
+
+        if (matchFound) {
+            Log.d("Property", "Match found for query '$query': $this")
+        }
+
+        return matchFound
     }
+
 
     private fun matchesNumericQuery(query: String): Boolean {
         val queryAsNumber = query.toIntOrNull()

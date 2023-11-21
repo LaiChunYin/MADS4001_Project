@@ -1,6 +1,7 @@
 package com.example.mads4001_project
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mads4001_project.databinding.ActivityMainBinding
@@ -29,17 +30,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun performSearch(query: String) {
+        Log.d("MainActivity", "Searching for: $query")
         val filteredProperties = properties.filter { property ->
             property.matchesQuery(query)
         }
+        Log.d("MainActivity", "Found ${filteredProperties.size} properties")
         propertyAdapter.updateProperties(filteredProperties)
     }
 
+
     private fun initializeProperties(): MutableList<Property> {
-        // Sample owner
         val sampleOwner = Owner("John Doe", "johndoe@example.com", "+123456789")
 
-        // Sample list of properties
         val sampleProperties = mutableListOf(
             Property(
                 type = "Condo",
@@ -52,7 +54,8 @@ class MainActivity : AppCompatActivity() {
                 address = "123 Main St, Metropolis",
                 city = "Metropolis",
                 postalCode = "12345",
-                availableForRent = true
+                availableForRent = true,
+                imageURL = "https://thumbor.forbes.com/thumbor/fit-in/1290x/https://www.forbes.com/advisor/wp-content/uploads/2022/10/condo-vs-apartment.jpeg.jpg"  // Sample image URL
             ),
             Property(
                 type = "House",
@@ -65,7 +68,8 @@ class MainActivity : AppCompatActivity() {
                 address = "456 Maple Ave, Springfield",
                 city = "Springfield",
                 postalCode = "67890",
-                availableForRent = true
+                availableForRent = true,
+                imageURL = "https://www.trulia.com/pictures/thumbs_5/zillowstatic/fp/6fb8604d0f16bf8c22ea266d19bc7ccf-full.webp"  // Sample image URL
             ),
             Property(
                 type = "Apartment",
@@ -78,11 +82,13 @@ class MainActivity : AppCompatActivity() {
                 address = "789 River Rd, Riverdale",
                 city = "Riverdale",
                 postalCode = "10111",
-                availableForRent = false
+                availableForRent = false,
+                imageURL = "https://www.trulia.com/pictures/thumbs_6/zillowstatic/fp/5aa7dd68c2f6536683aaac7ad6f9b99d-full.webp"  // Sample image URL
             )
             // Add more properties as needed
         )
 
         return sampleProperties
     }
+
 }
