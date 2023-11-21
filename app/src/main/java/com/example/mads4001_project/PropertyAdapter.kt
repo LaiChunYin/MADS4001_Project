@@ -27,14 +27,11 @@ class PropertyAdapter(private var properties: MutableList<Property>) : RecyclerV
 
     class PropertyViewHolder(private val binding: ItemPropertyBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(property: Property) {
-            // Assuming you want to display the property type as the title
-            binding.propertyTitleTextView.text = property.type
+            binding.propertyAddressTextView.text = property.address
+            binding.propertyCityPostalTextView.text = "${property.city}, ${property.postalCode}"
             binding.propertyDescriptionTextView.text = property.description
-            // Here you can set the other attributes of your property to different views, for example:
-            // binding.numOfRoomsTextView.text = property.numOfRooms.toString()
-
-            // If you have an image URL, you would load the image here. For example:
-            // Glide.with(binding.root.context).load(property.imageUrl).into(binding.propertyImageView)
+            // Bind additional details as needed
+            // If you have an image URL for the property, load it into the ImageView here
         }
     }
 }

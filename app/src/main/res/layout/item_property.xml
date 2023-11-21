@@ -25,17 +25,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:scaleType="centerCrop" />
-<!--                android:src="@drawable/ic_home_black_24dp" -->
-                 <!-- Replace with a proper drawable resource -->
+            <!-- Replace with a proper drawable resource -->
 
-            <!-- TextView for property title -->
+            <!-- TextView for property address -->
             <TextView
-                android:id="@+id/propertyTitleTextView"
+                android:id="@+id/propertyAddressTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:textSize="18sp"
-                android:text="Property Title" />
+                android:text="Property Address" />
+
+            <!-- TextView for property city and postal code -->
+            <TextView
+                android:id="@+id/propertyCityPostalTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="City, Postal Code" />
 
             <!-- TextView for property description -->
             <TextView

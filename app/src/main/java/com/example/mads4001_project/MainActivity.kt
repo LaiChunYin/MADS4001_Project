@@ -49,6 +49,9 @@ class MainActivity : AppCompatActivity() {
                 numOfBedrooms = 2,
                 numOfKitchens = 1,
                 numOfBathrooms = 2,
+                address = "123 Main St, Metropolis",
+                city = "Metropolis",
+                postalCode = "12345",
                 availableForRent = true
             ),
             Property(
@@ -59,6 +62,9 @@ class MainActivity : AppCompatActivity() {
                 numOfBedrooms = 4,
                 numOfKitchens = 1,
                 numOfBathrooms = 3,
+                address = "456 Maple Ave, Springfield",
+                city = "Springfield",
+                postalCode = "67890",
                 availableForRent = true
             ),
             Property(
@@ -69,6 +75,9 @@ class MainActivity : AppCompatActivity() {
                 numOfBedrooms = 1,
                 numOfKitchens = 1,
                 numOfBathrooms = 1,
+                address = "789 River Rd, Riverdale",
+                city = "Riverdale",
+                postalCode = "10111",
                 availableForRent = false
             )
             // Add more properties as needed
@@ -76,5 +85,4 @@ class MainActivity : AppCompatActivity() {
 
         return sampleProperties
     }
-
 }
