@@ -38,7 +38,6 @@ class Property(
     override fun equals(other: Any?): Boolean {
         if(this === other) return true
         if(other !is Property) return false
-        if(this.city != other.city) return false
         if(this.postalCode != other.postalCode) return false
         if(this.address != other.address) return false
 

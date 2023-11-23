@@ -9,6 +9,7 @@ import com.example.mads4001_project.databinding.ActivityAddPropertyBinding
 import com.example.mads4001_project.models.Owner
 import com.example.mads4001_project.models.Property
 import com.example.mads4001_project.models.User
+import com.example.mads4001_project.utils.checkDuplicatedProperty
 import com.example.mads4001_project.utils.saveDataToSharedPref
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
@@ -147,7 +148,7 @@ class AddPropertyActivity : AppCompatActivity() {
 
         // update property
         if(selectedProperty != null){
-            savedProperties[index] = Property(
+            val propertyToEdit = Property(
                 address!!,
                 city!!,
                 postalCode!!,
@@ -159,6 +160,15 @@ class AddPropertyActivity : AppCompatActivity() {
                 bathrooms!!,
                 availableForRent!!
             )
+            savedProperties[index] = propertyToEdit
+
+            var propertyAlreadyExist = checkDuplicatedProperty(propertyToEdit, this)
+            Log.i(tag, "prop edit already exist ${propertyAlreadyExist}")
+            if(propertyAlreadyExist){
+                Snackbar.make(binding.addPropertyParentLayout, "Property already exist!!", Snackbar.LENGTH_LONG).show()
+                return
+            }
+
             saveDataToSharedPref(this, "PROPERTIES", loggedInUserName, savedProperties, true)
 //            saveDataToSharedPref(this, "PROPERTIES", "ALL_LANDLORD_PROPERTIES", , true)
 //                val gson = Gson()
@@ -172,60 +182,14 @@ class AddPropertyActivity : AppCompatActivity() {
         }
         // create new property
         else {
-
-//            if (address.isNullOrEmpty()) {
-//                this.binding.address.setError("Address cannot be empty")
-//            }
-//            if (type.isNullOrEmpty()) {
-//                this.binding.type.setError("Type cannot be empty")
-//            }
-//            if (city.isNullOrEmpty()) {
-//                this.binding.city.setError("City cannot be empty")
-//            }
-//            if (postalCode.isNullOrEmpty()) {
-//                this.binding.postalCode.setError("Postal code cannot be empty")
-//            }
-//            if (ownerName.isNullOrEmpty()) {
-//                this.binding.ownerName.setError("Owner name cannot be empty")
-//            }
-//            if (ownerPhone.isNullOrEmpty()) {
-//                this.binding.ownerPhone.setError("Owner phone cannot be empty")
-//            }
-//            if (ownerEmail.isNullOrEmpty()) {
-//                this.binding.ownerEmail.setError("Owner email cannot be empty")
-//            }
-//            if (desc.isNullOrEmpty()) {
-//                this.binding.description.setError("Description cannot be empty")
-//            }
-//            if (bedrooms != null) {
-//                this.binding.bedrooms.setError("Bedrooms cannot be empty")
-//            }
-//            if (kitchens != null) {
-//                this.binding.kitchens.setError("Kitchens cannot be empty")
-//            }
-//            if (bathrooms != null) {
-//                this.binding.bathrooms.setError("Bathrooms cannot be empty")
-//            }
-
-//            if (address.isNotEmpty() && type.isNotEmpty() && city.isNotEmpty() && postalCode.isNotEmpty() && owner != null && desc.isNotEmpty() && bedrooms != null && kitchens != null && bathrooms != null
-//            ) {
-//                var propertyToAdd = Property(address, city, postalCode, type, owner, desc, bedrooms, kitchens, bathrooms, availableForRent)
-//                savedProperties.add(propertyToAdd)
-//
-//                saveDataToSharedPref(this, "KEY_PROPERTIES_DATASOURCE", savedProperties, true)
-////                val gson = Gson()
-////                val listAsString = gson.toJson(savedProperties)
-////                this.prefEditor.putString("KEY_PROPERTIES_DATASOURCE", listAsString)
-////
-////                this.prefEditor.apply()
-//                Snackbar.make(binding.addPropertyParentLayout, "Data Saved to SharedPrefs", Snackbar.LENGTH_LONG).show()
-//                finish()
-//            }
-//            else{
-//                Snackbar.make(binding.addPropertyParentLayout, "All fields are required.", Snackbar.LENGTH_LONG).show()
-//            }
-
             var propertyToAdd = Property(address!!, city!!, postalCode!!, type!!, owner, desc!!, bedrooms!!, kitchens!!, bathrooms!!, availableForRent!!)
+            var propertyAlreadyExist = checkDuplicatedProperty(propertyToAdd, this)
+            Log.i(tag, "prop already exist ${propertyAlreadyExist}")
+            if(propertyAlreadyExist){
+                Snackbar.make(binding.addPropertyParentLayout, "Property already exist!!", Snackbar.LENGTH_LONG).show()
+                return
+            }
+
             savedProperties.add(propertyToAdd)
 
             saveDataToSharedPref(this, "PROPERTIES", loggedInUserName, savedProperties, true)

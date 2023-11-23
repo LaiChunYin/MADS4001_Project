@@ -93,3 +93,13 @@ fun getAllLandlordProperties(context: Context): MutableList<Property> {
     Log.i(tag, "all properties is ${allProperties}")
     return allProperties
 }
+
+fun checkDuplicatedProperty(newProperty: Property, context: Context): Boolean {
+    val allProperty = getAllLandlordProperties(context)
+    for(property in allProperty){
+        Log.i(tag, "checking ${property}, ${newProperty}")
+        if(newProperty.equals(property)) return true
+    }
+    return false
+
+}
