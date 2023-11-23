@@ -56,6 +56,10 @@ open class MainActivity : AppCompatActivity() {
         if(justLoggedOut){
             Snackbar.make(binding.root, "Logout Successful", Snackbar.LENGTH_LONG).show()
         }
+        val justClearedData = (this.intent.getStringExtra("REFERER") ?: null) == "Toolbar"
+        if(justClearedData){
+            Snackbar.make(findViewById(R.id.root_layout), "Data erased!", Snackbar.LENGTH_LONG).show()
+        }
 
         propertiesToBeDisplayed.addAll(allProperties)
         propertyAdapter = PropertyAdapter(propertiesToBeDisplayed, loggedInUser?.username ?: "", false)
@@ -145,7 +149,13 @@ open class MainActivity : AppCompatActivity() {
 
                 prefEditor.clear()
                 prefEditor.apply()
-                Snackbar.make(binding.root, "Data erased!", Snackbar.LENGTH_LONG).show()
+
+                // logs out the user after all users are deleted
+                val intent = Intent(this, MainActivity::class.java)
+                intent.putExtra("USER", "")
+                intent.putExtra("REFERER", "Toolbar")
+                startActivity(intent)
+//                Snackbar.make(findViewById(R.id.root_layout), "Data erased!", Snackbar.LENGTH_LONG).show()
                 return true
             }
             R.id.delete_properties -> {
@@ -154,7 +164,7 @@ open class MainActivity : AppCompatActivity() {
 
                 prefEditor.clear()
                 prefEditor.apply()
-                Snackbar.make(binding.root, "property erased!", Snackbar.LENGTH_LONG).show()
+                Snackbar.make(findViewById(R.id.root_layout), "property erased!", Snackbar.LENGTH_LONG).show()
                 return true
             }
             else -> {
