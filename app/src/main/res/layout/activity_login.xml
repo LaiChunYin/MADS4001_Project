@@ -5,13 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:gravity="center"
+    android:background="#CFF1EE"
     tools:context=".screens.LoginActivity">
 
 
     <TextView
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Login"/>
+        android:layout_width="match_parent"
+        android:textSize="50sp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:layout_marginBottom="10dp"
+        android:text="Login" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -20,7 +26,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Username"/>
+            android:textSize="20sp"
+            android:text="Username: "/>
 
         <EditText
             android:id="@+id/username_input"
@@ -37,6 +44,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="20sp"
             android:text="Password: "/>
 
         <EditText
@@ -51,11 +59,15 @@
         android:id="@+id/login_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:backgroundTint="#25A193"
         android:text="Login"/>
     <Button
         android:id="@+id/sign_up_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:backgroundTint="#1B8377"
         android:text="Sign Up"/>
 
 
