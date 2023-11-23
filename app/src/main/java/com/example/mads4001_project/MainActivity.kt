@@ -25,7 +25,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var propertyAdapter: PropertyAdapter
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var prefEditor: SharedPreferences.Editor
-    private var properties: MutableList<Property> = mutableListOf()
+    private var propertiesToBeDisplayed: MutableList<Property> = mutableListOf()
+    private val allProperties: MutableList<Property> = initializeProperties()
 //    private var loggedInUserName: String = ""
     private var loggedInUser: User? = null
     val tag = "Main"
@@ -43,9 +44,9 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(this.binding.menuToolbar)
         supportActionBar?.setDisplayShowTitleEnabled(true)
 
-        properties = initializeProperties()
+        propertiesToBeDisplayed.addAll(allProperties)
         Log.i(tag, "on create ${loggedInUser}")
-        propertyAdapter = PropertyAdapter(properties, loggedInUser?.username ?: "", false)
+        propertyAdapter = PropertyAdapter(propertiesToBeDisplayed, loggedInUser?.username ?: "", false)
 
         binding.propertiesRecyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
         binding.propertiesRecyclerView.adapter = propertyAdapter
@@ -119,10 +120,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun performSearch(query: String) {
-        val filteredProperties = properties.filter { property ->
+        Log.i(tag, "all prop $allProperties")
+        val filteredProperties = if(query != "") allProperties.filter { property ->
             property.matchesQuery(query)
-        }
-        propertyAdapter.setProperties(filteredProperties)
+        } else allProperties
+        Log.i(tag, "filtered props $filteredProperties")
+        propertiesToBeDisplayed.clear()
+        propertiesToBeDisplayed.addAll(filteredProperties)
+        propertyAdapter.notifyDataSetChanged()
     }
 
 

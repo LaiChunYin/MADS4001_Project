@@ -157,23 +157,4 @@ class PropertyAdapter(private var properties: MutableList<Property>, private var
         return properties.size
     }
 
-    fun setProperties(newProperties: List<Property>) {
-        val diffResult = DiffUtil.calculateDiff(PropertyDiffCallback(properties, newProperties))
-        properties.clear()
-        properties.addAll(newProperties)
-        diffResult.dispatchUpdatesTo(this)
-    }
-
-    private class PropertyDiffCallback(
-        private val oldProperties: List<Property>,
-        private val newProperties: List<Property>
-    ) : DiffUtil.Callback() {
-        override fun getOldListSize(): Int = oldProperties.size
-        override fun getNewListSize(): Int = newProperties.size
-        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
-            oldProperties[oldItemPosition] == newProperties[newItemPosition]
-
-        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
-            oldProperties[oldItemPosition] == newProperties[newItemPosition]
-    }
 }
