@@ -2,149 +2,132 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/menu_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?attr/actionBarSize"
         android:background="#FFA726"
-        android:padding="0dp" />
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:gravity="center">
 
-    <TextView
-        android:id="@+id/titleTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="GBCRent.gp8"
-        android:layout_gravity="center_horizontal"
-        android:padding="16dp"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+    </androidx.appcompat.widget.Toolbar>
 
     <EditText
         android:id="@+id/searchEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
         android:hint="Enter city, property ID, or address"
-        android:inputType="text"/>
+        android:inputType="text"
+        android:background="@drawable/rounded_edittext"
+        android:padding="12dp"
+        android:layout_margin="16dp"/>
 
     <Button
         android:id="@+id/searchButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:padding="16dp"
-        android:text="Search"/>
+        android:text="Search"
+        android:background="@color/button_color"
+        android:textColor="@android:color/white"
+        android:layout_margin="16dp"
+        android:padding="12dp"/>
 
-    <LinearLayout
-        android:layout_below="@+id/linear"
-        android:id="@+id/linear_category"
-        android:orientation="horizontal"
+    <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:elevation="10dp"
+        android:layout_marginTop="8dp"
         android:background="@color/light_grey">
 
-        <RelativeLayout
+        <LinearLayout
+            android:id="@+id/linear_category"
+            android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            android:layout_margin="4dp">
+            android:gravity="center_vertical">
 
-            <ImageView
-                android:id="@+id/condo_image"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/condo"
-                />
-
-            <TextView
+            <!-- Condo Category -->
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/condo_image"
-                android:layout_alignStart="@+id/condo_image"
-                android:layout_alignEnd="@+id/condo_image"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="4dp"
-                android:layout_marginEnd="16dp"
-                android:maxLines="1"
-                android:text="Condo"
-                android:textStyle="bold"
-                android:textSize="16sp"/>
+                android:orientation="vertical"
+                android:padding="8dp"
+                android:gravity="center_horizontal">
 
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:layout_margin="4dp">
+                <ImageView
+                    android:id="@+id/condo_image"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/condo"
+                    />
 
-            <ImageView
-                android:id="@+id/house_image"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/house"
-                />
-
-            <TextView
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Condo"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                    android:layout_marginTop="4dp"/>
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/house_image"
-                android:layout_alignStart="@+id/house_image"
-                android:layout_alignEnd="@+id/house_image"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="4dp"
-                android:layout_marginEnd="16dp"
-                android:maxLines="1"
-                android:text="House"
-                android:textStyle="bold"
-                android:textSize="16sp"/>
+                android:orientation="vertical"
+                android:padding="8dp"
+                android:gravity="center_horizontal">
 
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:layout_margin="4dp">
+                <ImageView
+                    android:id="@+id/house_image"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/house"
+                    />
 
-            <ImageView
-                android:id="@+id/apartment_image"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/apartment"
-                />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="House"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                    android:layout_marginTop="4dp"/>
+            </LinearLayout>
 
-            <TextView
+            <!-- Apartment Category -->
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/apartment_image"
-                android:layout_alignStart="@+id/apartment_image"
-                android:layout_alignParentEnd="true"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="24dp"
-                android:maxLines="1"
-                android:text="Apartment"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:orientation="vertical"
+                android:padding="8dp"
+                android:gravity="center_horizontal">
 
-        </RelativeLayout>
+                <ImageView
+                    android:id="@+id/apartment_image"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/apartment"
+                     />
 
-    </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Apartment"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                    android:layout_marginTop="4dp"/>
+            </LinearLayout>
 
-
+        </LinearLayout>
+    </HorizontalScrollView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/propertiesRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:padding="16dp"
-        android:layout_marginTop="8dp"/>
+        android:clipToPadding="false"
+        android:padding="16dp"/>
 
 </LinearLayout>
