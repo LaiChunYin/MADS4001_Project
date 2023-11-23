@@ -76,6 +76,9 @@
                     android:padding="8dp"
                     android:textSize="16sp"/>
 
+            </TableRow>
+
+            <TableRow>
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
