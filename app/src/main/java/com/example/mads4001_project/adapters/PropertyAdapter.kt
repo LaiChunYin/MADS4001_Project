@@ -32,12 +32,6 @@ class PropertyAdapter(private var properties: MutableList<Property>, private var
     private val shortlistedProperties: MutableList<String> = mutableListOf()
     private val tag = "Property Adapter"
 
-    fun setProperties(newProperties: List<Property>) {
-        val diffResult = DiffUtil.calculateDiff(PropertyDiffCallback(properties, newProperties))
-        properties.clear()
-        properties.addAll(newProperties)
-        diffResult.dispatchUpdatesTo(this)
-    }
     inner class PropertyViewHolder(private val binding: ItemPropertyBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(property: Property, context: Context, pos: Int) {
             Log.i(tag, "in bind ${loggedInUser}, ${this@PropertyAdapter.loggedInUser}")
@@ -163,10 +157,11 @@ class PropertyAdapter(private var properties: MutableList<Property>, private var
         return properties.size
     }
 
-    fun updateProperties(newProperties: List<Property>) {
+    fun setProperties(newProperties: List<Property>) {
+        val diffResult = DiffUtil.calculateDiff(PropertyDiffCallback(properties, newProperties))
         properties.clear()
         properties.addAll(newProperties)
-        notifyDataSetChanged()
+        diffResult.dispatchUpdatesTo(this)
     }
 
     private class PropertyDiffCallback(

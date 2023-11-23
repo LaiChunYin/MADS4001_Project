@@ -7,6 +7,7 @@ import android.os.IBinder.DeathRecipient
 import android.util.Log
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.example.mads4001_project.R
 import com.example.mads4001_project.databinding.ActivityPropertyDetailBinding
 import com.example.mads4001_project.databinding.ActivityShortlistBinding
@@ -47,9 +48,10 @@ class PropertyDetailActivity : AppCompatActivity() {
                 binding.numberOfBedrooms.setText(property.numOfBedrooms.toString())
                 binding.numberOfKitchens.setText(property.numOfKitchens.toString())
 
-                val imageName = property.imageUrl
-                val res = resources.getIdentifier(imageName, "drawable", this.packageName)
-                this.binding.propertyImage.setImageResource(res)
+                Glide.with(binding.root.context).load(property.imageUrl).into(binding.propertyImage)  // for online images
+//                val imageName = property.imageUrl
+//                val res = resources.getIdentifier(imageName, "drawable", this.packageName)
+//                this.binding.propertyImage.setImageResource(res)
             }
 
         }

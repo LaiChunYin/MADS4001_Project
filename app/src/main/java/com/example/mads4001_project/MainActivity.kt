@@ -1,13 +1,14 @@
 package com.example.mads4001_project
 
+import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.content.SharedPreferences
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mads4001_project.adapters.PropertyAdapter
 import com.example.mads4001_project.databinding.ActivityMainBinding
@@ -16,10 +17,8 @@ import com.example.mads4001_project.models.Property
 import com.example.mads4001_project.models.User
 import com.example.mads4001_project.screens.ShortlistActivity
 import com.example.mads4001_project.utils.getLoggedInUser
+import com.example.mads4001_project.utils.prefEditor
 import com.google.android.material.snackbar.Snackbar
-import com.example.mads4001_project.utils.getLoggedInUser
-import com.google.gson.Gson
-import kotlin.math.log
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -48,10 +47,8 @@ class MainActivity : AppCompatActivity() {
         Log.i(tag, "on create ${loggedInUser}")
         propertyAdapter = PropertyAdapter(properties, loggedInUser?.username ?: "", false)
 
-        binding.propertiesRecyclerView.apply {
-            layoutManager = LinearLayoutManager(this@MainActivity)
-            adapter = propertyAdapter
-        }
+        binding.propertiesRecyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
+        binding.propertiesRecyclerView.adapter = propertyAdapter
 
         binding.searchButton.setOnClickListener {
             performSearch(binding.searchEditText.text.toString())
@@ -102,8 +99,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
-
 
     private fun performSearch(query: String) {
         val filteredProperties = properties.filter { property ->
@@ -165,15 +160,4 @@ class MainActivity : AppCompatActivity() {
         return sampleProperties
     }
 
-
-//    fun getLoggedInUser(): User? {
-//        val loggedInUserName = this.intent.getStringExtra("USER") ?: ""
-//        if(loggedInUserName == "") return null
-//
-//        // configure shared preferences
-//        this.sharedPreferences = getSharedPreferences("MY_APP_PREFS", MODE_PRIVATE)
-//        this.prefEditor = this.sharedPreferences.edit()
-//
-//        return Gson().fromJson(sharedPreferences.getString(loggedInUserName, ""), User::class.java)
-//    }
 }
