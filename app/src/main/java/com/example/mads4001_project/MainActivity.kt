@@ -39,7 +39,6 @@ open class MainActivity : AppCompatActivity() {
     open val tag = "Main"
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Log.i(tag, "oncreate")
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -47,7 +46,7 @@ open class MainActivity : AppCompatActivity() {
         allProperties = initializeProperties(this)
         loggedInUser = getLoggedInUser(this)
 
-        Log.i(tag, "property to be displayed ${loggedInUser}")
+        Log.i(tag, "property to be displayed ${allProperties}")
 
         setSupportActionBar(this.binding.menuToolbar)
         supportActionBar?.setDisplayShowTitleEnabled(true)
@@ -58,7 +57,6 @@ open class MainActivity : AppCompatActivity() {
         }
 
         propertiesToBeDisplayed.addAll(allProperties)
-        Log.i(tag, "on create ${loggedInUser}")
         propertyAdapter = PropertyAdapter(propertiesToBeDisplayed, loggedInUser?.username ?: "", false)
 
         binding.propertiesRecyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
@@ -88,12 +86,7 @@ open class MainActivity : AppCompatActivity() {
     }
 
     override fun onResume() {
-        Log.i(tag, "onresume")
-
         loggedInUser = getLoggedInUser(this)
-//        if(loggedInUser != null){
-//            propertyAdapter.notifyDataSetChanged()
-//        }
         allProperties.clear()
         allProperties = initializeProperties(this)
         propertiesToBeDisplayed.clear()
@@ -119,7 +112,6 @@ open class MainActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.go_to_shortlist -> {
                 val intent = Intent(this, ShortlistActivity::class.java)
-                Log.i(tag, "send to shortlist ${loggedInUser}")
                 intent.putExtra("USER", loggedInUser?.username)
                 startActivity(intent)
                 return true
@@ -127,14 +119,12 @@ open class MainActivity : AppCompatActivity() {
             R.id.add_property -> {
                 if(loggedInUser != null) {
                     val intent = Intent(this, LandlordPropertiesActivity::class.java)
-                    Log.i(tag, "send to add properties ${loggedInUser}")
                     intent.putExtra("USER", loggedInUser?.username)
                     startActivity(intent)
                     return true
                 }
                 else {
                     val intent = Intent(this, LoginActivity::class.java)
-                    Log.i(tag, "send to add properties (login needed) ${loggedInUser}")
                     intent.putExtra("REFERER", "MainActivity")
                     startActivity(intent)
                     return true
@@ -167,18 +157,16 @@ open class MainActivity : AppCompatActivity() {
                 return true
             }
             else -> {
-                Log.i(tag, "delete this, item is $item")
                 super.onOptionsItemSelected(item)
             }
         }
     }
 
     private fun performSearch(query: String) {
-        Log.i(tag, "all prop $allProperties")
         val filteredProperties = if(query != "") allProperties.filter { property ->
             property.matchesQuery(query)
         } else allProperties
-        Log.i(tag, "filtered props $filteredProperties")
+        Log.i(tag, "filtered properties: $filteredProperties")
         propertiesToBeDisplayed.clear()
         propertiesToBeDisplayed.addAll(filteredProperties)
         propertyAdapter.notifyDataSetChanged()
@@ -321,10 +309,8 @@ open class MainActivity : AppCompatActivity() {
 
         // show the properties added by the landlords
         this.sharedPreferences = getSharedPreferences("PROPERTIES", MODE_PRIVATE)
-//        val allLandlordProperties = sharedPreferences.getString("ALL_LANDLORD_PROPERTIES", "")
         val allLandlordProperties = getAllLandlordProperties(context)
-//        val landlordProperties = if(allLandlordProperties != "") Gson().fromJson<List<Property>>(allLandlordProperties, object : TypeToken<List<Property>>() {}.type) else mutableListOf()
-        Log.i(tag, "after get all ${allLandlordProperties}")
+        Log.i(tag, "allLandlordProperties: ${allLandlordProperties}")
         propertiesToBeDisplay.addAll(sampleProperties)
         propertiesToBeDisplay.addAll(allLandlordProperties)
         return propertiesToBeDisplay

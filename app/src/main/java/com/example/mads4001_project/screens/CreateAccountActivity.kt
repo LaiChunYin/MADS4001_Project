@@ -1,28 +1,17 @@
 package com.example.mads4001_project.screens
 
-import android.content.Intent
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.RadioButton
-import com.example.mads4001_project.R
-import com.example.mads4001_project.adapters.PropertyAdapter
 import com.example.mads4001_project.databinding.ActivityCreateAccountBinding
-import com.example.mads4001_project.databinding.ActivityLoginBinding
-import com.example.mads4001_project.models.Property
 import com.example.mads4001_project.models.User
-import com.example.mads4001_project.utils.prefEditor
 import com.example.mads4001_project.utils.saveDataToSharedPref
-import com.example.mads4001_project.utils.sharedPreferences
 import com.google.android.material.snackbar.Snackbar
-import com.google.gson.Gson
 
 class CreateAccountActivity : LoginActivity() {
     private lateinit var binding: ActivityCreateAccountBinding
-    private lateinit var propertyAdapter: PropertyAdapter
     private lateinit var sharedPreferences: SharedPreferences
-    private lateinit var prefEditor: SharedPreferences.Editor
     override val tag = "Create Account"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,12 +26,8 @@ class CreateAccountActivity : LoginActivity() {
             val checkBtn: RadioButton? = findViewById<RadioButton>(this.binding.userTypeRadioGp.checkedRadioButtonId)
             val userType = checkBtn?.text.toString()
 
-            Log.i(tag, "new user ${username}, ${password}, ${confirmPassword}, ${userType}")
-
             // configure shared preferences
-            this.sharedPreferences = getSharedPreferences("USERS",
-                AppCompatActivity.MODE_PRIVATE
-            )
+            this.sharedPreferences = getSharedPreferences("USERS", MODE_PRIVATE)
 
             // check if the username has already been used
             val userJson = sharedPreferences.getString(username, "")

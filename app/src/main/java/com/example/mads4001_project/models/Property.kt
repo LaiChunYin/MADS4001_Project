@@ -1,8 +1,6 @@
 package com.example.mads4001_project.models
 
-import android.util.Log
 import java.io.Serializable
-
 
 class Property(
     val address: String,

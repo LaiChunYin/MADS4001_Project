@@ -3,15 +3,10 @@ package com.example.mads4001_project.screens
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.IBinder.DeathRecipient
 import android.util.Log
 import android.view.View
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
-//import com.bumptech.glide.Glide
 import com.example.mads4001_project.R
 import com.example.mads4001_project.databinding.ActivityPropertyDetailBinding
-import com.example.mads4001_project.databinding.ActivityShortlistBinding
 import com.example.mads4001_project.models.Property
 
 class PropertyDetailActivity : AppCompatActivity() {

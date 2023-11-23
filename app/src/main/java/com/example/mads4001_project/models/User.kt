@@ -1,7 +1,6 @@
 package com.example.mads4001_project.models
 
 import java.io.Serializable
-import java.security.cert.CertPathValidatorException
 
 open class User(
     val username: String,

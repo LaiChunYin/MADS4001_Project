@@ -1,6 +1,5 @@
 package com.example.mads4001_project.screens
 
-import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
@@ -8,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.mads4001_project.databinding.ActivityAddPropertyBinding
 import com.example.mads4001_project.models.Owner
 import com.example.mads4001_project.models.Property
-import com.example.mads4001_project.models.User
 import com.example.mads4001_project.utils.checkDuplicatedProperty
 import com.example.mads4001_project.utils.saveDataToSharedPref
 import com.google.android.material.snackbar.Snackbar
@@ -22,7 +20,7 @@ class AddPropertyActivity : AppCompatActivity() {
     lateinit var sharedPreferences: SharedPreferences
     lateinit var prefEditor: SharedPreferences.Editor
     private var loggedInUserName: String = ""
-    val tag = "Add Prop"
+    val tag = "Add Property"
 
     var savedProperties: MutableList<Property> = mutableListOf()
 
@@ -34,7 +32,7 @@ class AddPropertyActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         loggedInUserName = this.intent.getStringExtra("USER") ?: ""
-        Log.i(tag, "logged in add prop ${loggedInUserName}")
+        Log.i(tag, "In AddProperty, user: ${loggedInUserName}")
 
         val selectedProperty = intent.getSerializableExtra("PROPERTY_DATA") as Property?
         if (selectedProperty != null) {
@@ -55,8 +53,6 @@ class AddPropertyActivity : AppCompatActivity() {
         this.sharedPreferences = getSharedPreferences("PROPERTIES", MODE_PRIVATE)
         this.prefEditor = this.sharedPreferences.edit()
 
-
-//        var resultsFromSP = sharedPreferences.getString("KEY_PROPERTIES_DATASOURCE", "")
         var resultsFromSP = sharedPreferences.getString(loggedInUserName, "")
         if (resultsFromSP != "") {
             val gson = Gson()
@@ -144,7 +140,7 @@ class AddPropertyActivity : AppCompatActivity() {
 
         val selectedProperty = intent.getSerializableExtra("PROPERTY_DATA") as Property?
         val index = intent.getIntExtra("INDEX", -1)
-        Log.i(tag, "selected ${selectedProperty}, ${index}")
+        Log.i(tag, "selected property ${index}: ${selectedProperty}")
 
         // update property
         if(selectedProperty != null){
@@ -163,21 +159,14 @@ class AddPropertyActivity : AppCompatActivity() {
             savedProperties[index] = propertyToEdit
 
             var propertyAlreadyExist = checkDuplicatedProperty(propertyToEdit, this)
-            Log.i(tag, "prop edit already exist ${propertyAlreadyExist}")
+            Log.i(tag, "property already exist ${propertyAlreadyExist}")
             if(propertyAlreadyExist){
                 Snackbar.make(binding.addPropertyParentLayout, "Property already exist!!", Snackbar.LENGTH_LONG).show()
                 return
             }
 
             saveDataToSharedPref(this, "PROPERTIES", loggedInUserName, savedProperties, true)
-//            saveDataToSharedPref(this, "PROPERTIES", "ALL_LANDLORD_PROPERTIES", , true)
-//                val gson = Gson()
-//                val listAsString = gson.toJson(savedProperties)
-//                this.prefEditor.putString("KEY_PROPERTIES_DATASOURCE", listAsString)
-//
-//                this.prefEditor.apply()
             Snackbar.make(binding.addPropertyParentLayout, "Data Saved to SharedPrefs", Snackbar.LENGTH_LONG).show()
-
             finish()
         }
         // create new property
@@ -193,12 +182,6 @@ class AddPropertyActivity : AppCompatActivity() {
             savedProperties.add(propertyToAdd)
 
             saveDataToSharedPref(this, "PROPERTIES", loggedInUserName, savedProperties, true)
-//            saveDataToSharedPref(this, "PROPERTIES", "", , true)
-//                val gson = Gson()
-//                val listAsString = gson.toJson(savedProperties)
-//                this.prefEditor.putString("KEY_PROPERTIES_DATASOURCE", listAsString)
-//
-//                this.prefEditor.apply()
             Snackbar.make(binding.addPropertyParentLayout, "Data Saved to SharedPrefs", Snackbar.LENGTH_LONG).show()
             finish()
 

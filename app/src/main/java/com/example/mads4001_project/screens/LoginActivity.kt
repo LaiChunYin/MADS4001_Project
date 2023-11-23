@@ -5,13 +5,8 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mads4001_project.MainActivity
-import com.example.mads4001_project.R
-import com.example.mads4001_project.adapters.PropertyAdapter
 import com.example.mads4001_project.databinding.ActivityLoginBinding
-import com.example.mads4001_project.databinding.ActivityMainBinding
-import com.example.mads4001_project.models.Property
 import com.example.mads4001_project.models.User
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
@@ -41,7 +36,6 @@ open class LoginActivity : AppCompatActivity() {
         }
 
         binding.loginBtn.setOnClickListener {
-            Log.i(tag, "login clicked")
             val username = this.binding.usernameInput.text.toString()
             val password = this.binding.passwordInput.text.toString()
 
@@ -56,16 +50,13 @@ open class LoginActivity : AppCompatActivity() {
         }
 
         binding.signUpBtn.setOnClickListener {
-            Log.i(tag, "signup clicked")
-
             val intent = Intent(this@LoginActivity, CreateAccountActivity::class.java)
             startActivity(intent)
         }
     }
 
     protected fun login(user: User){
-        Log.i(tag, "login checking all pass")
-
+        Log.i(tag, "logging in")
         val intent = Intent(this@LoginActivity, MainActivity::class.java)
         intent.putExtra("USER", user.username)
         startActivity(intent)
