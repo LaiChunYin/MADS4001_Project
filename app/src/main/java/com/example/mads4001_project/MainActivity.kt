@@ -1,5 +1,6 @@
 package com.example.mads4001_project
 
+import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.content.SharedPreferences
@@ -15,21 +16,27 @@ import com.example.mads4001_project.databinding.ActivityMainBinding
 import com.example.mads4001_project.models.Owner
 import com.example.mads4001_project.models.Property
 import com.example.mads4001_project.models.User
+import com.example.mads4001_project.screens.AddPropertyActivity
+import com.example.mads4001_project.screens.LoginActivity
 import com.example.mads4001_project.screens.ShortlistActivity
 import com.example.mads4001_project.utils.getLoggedInUser
 import com.example.mads4001_project.utils.prefEditor
+import com.example.mads4001_project.screens.LandlordPropertiesActivity
+import com.example.mads4001_project.utils.getAllLandlordProperties
 import com.google.android.material.snackbar.Snackbar
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
-class MainActivity : AppCompatActivity() {
+open class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var propertyAdapter: PropertyAdapter
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var prefEditor: SharedPreferences.Editor
     private var propertiesToBeDisplayed: MutableList<Property> = mutableListOf()
-    private val allProperties: MutableList<Property> = initializeProperties()
+    private var allProperties: MutableList<Property> = mutableListOf()
 //    private var loggedInUserName: String = ""
     private var loggedInUser: User? = null
-    val tag = "Main"
+    open val tag = "Main"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.i(tag, "oncreate")
@@ -37,6 +44,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        allProperties = initializeProperties(this)
         loggedInUser = getLoggedInUser(this)
 
         Log.i(tag, "property to be displayed ${loggedInUser}")
@@ -78,9 +86,14 @@ class MainActivity : AppCompatActivity() {
         Log.i(tag, "onresume")
 
         loggedInUser = getLoggedInUser(this)
-        if(loggedInUser != null){
-            propertyAdapter.notifyDataSetChanged()
-        }
+//        if(loggedInUser != null){
+//            propertyAdapter.notifyDataSetChanged()
+//        }
+        allProperties.clear()
+        allProperties = initializeProperties(this)
+        propertiesToBeDisplayed.clear()
+        propertiesToBeDisplayed.addAll(allProperties)
+        propertyAdapter.notifyDataSetChanged()
 
         super.onResume()
     }
@@ -88,8 +101,12 @@ class MainActivity : AppCompatActivity() {
     // options menu
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
-        if(loggedInUser != null) {
-            menuInflater.inflate(R.menu.options_menu, menu)
+        menuInflater.inflate(R.menu.options_menu, menu)
+        if(loggedInUser == null || loggedInUser?.userType == "Landlord") {
+            menu.findItem(R.id.go_to_shortlist).setVisible(false)
+        }
+        if(loggedInUser?.userType == "Tenant") {
+            menu.findItem(R.id.add_property).setVisible(false)
         }
         return true
     }
@@ -102,14 +119,39 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
                 return true
             }
+            R.id.add_property -> {
+                if(loggedInUser != null) {
+                    val intent = Intent(this, LandlordPropertiesActivity::class.java)
+                    Log.i(tag, "send to add properties ${loggedInUser}")
+                    intent.putExtra("USER", loggedInUser?.username)
+                    startActivity(intent)
+                    return true
+                }
+                else {
+                    val intent = Intent(this, LoginActivity::class.java)
+                    Log.i(tag, "send to add properties (login needed) ${loggedInUser}")
+                    intent.putExtra("REFERER", "MainActivity")
+                    startActivity(intent)
+                    return true
+                }
+            }
             // for testing only. Remove this later
             R.id.delete_users -> {
-                this.sharedPreferences = getSharedPreferences("MY_APP_PREFS", MODE_PRIVATE)
+                this.sharedPreferences = getSharedPreferences("USERS", MODE_PRIVATE)
                 this.prefEditor = this.sharedPreferences.edit()
 
                 prefEditor.clear()
                 prefEditor.apply()
                 Snackbar.make(binding.root, "Data erased!", Snackbar.LENGTH_LONG).show()
+                return true
+            }
+            R.id.delete_properties -> {
+                this.sharedPreferences = getSharedPreferences("PROPERTIES", MODE_PRIVATE)
+                this.prefEditor = this.sharedPreferences.edit()
+
+                prefEditor.clear()
+                prefEditor.apply()
+                Snackbar.make(binding.root, "property erased!", Snackbar.LENGTH_LONG).show()
                 return true
             }
             else -> {
@@ -131,7 +173,8 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun initializeProperties(): MutableList<Property> {
+    private fun initializeProperties(context: Context): MutableList<Property> {
+        val propertiesToBeDisplay = mutableListOf<Property>()
         val sampleOwner = Owner("John Doe", "johndoe@example.com", "+123456789")
 
         val sampleProperties = mutableListOf(
@@ -139,7 +182,6 @@ class MainActivity : AppCompatActivity() {
                 type = "Condo",
                 owner = sampleOwner,
                 description = "Modern condo with 2 bedrooms and a great view of the city.",
-                numOfRooms = 5,
                 numOfBedrooms = 2,
                 numOfKitchens = 1,
                 numOfBathrooms = 2,
@@ -153,7 +195,6 @@ class MainActivity : AppCompatActivity() {
                 type = "House",
                 owner = sampleOwner,
                 description = "Spacious house with a large backyard and modern amenities.",
-                numOfRooms = 7,
                 numOfBedrooms = 4,
                 numOfKitchens = 1,
                 numOfBathrooms = 3,
@@ -167,7 +208,6 @@ class MainActivity : AppCompatActivity() {
                 type = "Apartment",
                 owner = sampleOwner,
                 description = "Cozy apartment close to downtown and public transportation.",
-                numOfRooms = 3,
                 numOfBedrooms = 1,
                 numOfKitchens = 1,
                 numOfBathrooms = 1,
@@ -180,7 +220,15 @@ class MainActivity : AppCompatActivity() {
             // Add more properties as needed
         )
 
-        return sampleProperties
+        // show the properties added by the landlords
+        this.sharedPreferences = getSharedPreferences("PROPERTIES", MODE_PRIVATE)
+//        val allLandlordProperties = sharedPreferences.getString("ALL_LANDLORD_PROPERTIES", "")
+        val allLandlordProperties = getAllLandlordProperties(context)
+//        val landlordProperties = if(allLandlordProperties != "") Gson().fromJson<List<Property>>(allLandlordProperties, object : TypeToken<List<Property>>() {}.type) else mutableListOf()
+        Log.i(tag, "after get all ${allLandlordProperties}")
+        propertiesToBeDisplay.addAll(sampleProperties)
+        propertiesToBeDisplay.addAll(allLandlordProperties)
+        return propertiesToBeDisplay
     }
 
 }

@@ -6,7 +6,17 @@
         android:title="Shortlist" />
 
     <item
+        android:id="@+id/add_property"
+        android:orderInCategory="200"
+        android:title="Rent Your Property" />
+
+    <item
         android:id="@+id/delete_users"
-        android:orderInCategory="100"
+        android:orderInCategory="300"
         android:title="Delete all Account (remove this later)" />
+
+    <item
+        android:id="@+id/delete_properties"
+        android:orderInCategory="400"
+        android:title="Clear All Property (remove this later)" />
 </menu>

@@ -6,6 +6,8 @@ import com.example.mads4001_project.models.User
 import com.google.gson.Gson
 import android.content.SharedPreferences
 import android.util.Log
+import com.example.mads4001_project.models.Property
+import com.google.gson.reflect.TypeToken
 import java.util.Objects
 
 //class helper {
@@ -17,7 +19,7 @@ import java.util.Objects
 //            if(loggedInUserName == "") return null
 //
 //            // configure shared preferences
-//            this.sharedPreferences = context.getSharedPreferences("MY_APP_PREFS",
+//            this.sharedPreferences = context.getSharedPreferences("USERS",
 //                AppCompatActivity.MODE_PRIVATE
 //            )
 //            this.prefEditor = this.sharedPreferences.edit()
@@ -30,12 +32,13 @@ import java.util.Objects
 
 lateinit var sharedPreferences: SharedPreferences
 lateinit var prefEditor: SharedPreferences.Editor
+val tag = "Utils"
 fun getLoggedInUser(context: AppCompatActivity): User? {
     val loggedInUserName = context.intent.getStringExtra("USER") ?: ""
     Log.i("helper", "in getloggedInUser ${loggedInUserName}")
     if(loggedInUserName == "") return null
     // configure shared preferences
-    sharedPreferences = context.getSharedPreferences("MY_APP_PREFS",
+    sharedPreferences = context.getSharedPreferences("USERS",
         AppCompatActivity.MODE_PRIVATE
     )
     return Gson().fromJson(sharedPreferences.getString(loggedInUserName, ""), User::class.java)
@@ -44,21 +47,17 @@ fun getLoggedInUser(context: AppCompatActivity): User? {
 fun getLoggedInUser(loggedInUserName: String, context: Context): User? {
     if(loggedInUserName == "") return null
     // configure shared preferences
-    sharedPreferences = context.getSharedPreferences("MY_APP_PREFS",
+    sharedPreferences = context.getSharedPreferences("USERS",
         AppCompatActivity.MODE_PRIVATE
     )
     return Gson().fromJson(sharedPreferences.getString(loggedInUserName, ""), User::class.java)
 }
 
-fun getDataFromSharedPref() {
-
-}
-
-fun saveDataToSharedPref(context: Context, key: String, data: Any, toJson: Boolean = false) {
+fun saveDataToSharedPref(context: Context, file: String, key: String, data: Any, toJson: Boolean = false) {
     var dataString: String
 
     // configure shared preferences
-    sharedPreferences = context.getSharedPreferences("MY_APP_PREFS",
+    sharedPreferences = context.getSharedPreferences(file,
         AppCompatActivity.MODE_PRIVATE
     )
     prefEditor = sharedPreferences.edit()
@@ -71,4 +70,26 @@ fun saveDataToSharedPref(context: Context, key: String, data: Any, toJson: Boole
     }
     prefEditor.putString(key, dataString)
     prefEditor.apply()
+}
+
+fun getAllLandlordProperties(context: Context): MutableList<Property> {
+    val allProperties = mutableListOf<Property>()
+    sharedPreferences = context.getSharedPreferences("PROPERTIES", AppCompatActivity.MODE_PRIVATE)
+    Log.i(tag, "getting all land ${sharedPreferences.all.isEmpty()} $sharedPreferences")
+
+    // delete this
+    if(sharedPreferences.all.isNotEmpty()) {
+//        for (key in sharedPreferences.all.keys) {
+//            Log.i(tag, "key is ${key}")
+//        }
+        val gson = Gson()
+        for(properties in sharedPreferences.all.values){
+            Log.i(tag, "key prop is ${properties!!::class.simpleName} ${properties}")
+            val landlordProperties = gson.fromJson<List<Property>>(properties as String, object : TypeToken<List<Property>>() {}.type)
+            allProperties.addAll(landlordProperties)
+        }
+
+    }
+    Log.i(tag, "all properties is ${allProperties}")
+    return allProperties
 }

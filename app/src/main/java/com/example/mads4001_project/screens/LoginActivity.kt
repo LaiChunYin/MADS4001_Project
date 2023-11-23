@@ -28,7 +28,7 @@ open class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // configure shared preferences
-        this.sharedPreferences = getSharedPreferences("MY_APP_PREFS", MODE_PRIVATE)
+        this.sharedPreferences = getSharedPreferences("USERS", MODE_PRIVATE)
         this.prefEditor = this.sharedPreferences.edit()
 
         val isFromMain = this@LoginActivity.intent.extras != null &&
@@ -37,7 +37,7 @@ open class LoginActivity : AppCompatActivity() {
         if(isFromMain){
             Log.i(tag, "login needed")
             this@LoginActivity.intent.removeExtra("REFERER")
-            Snackbar.make(binding.root, "Please login before viewing the property details", Snackbar.LENGTH_LONG).show()
+            Snackbar.make(binding.root, "Please login for further actions.Lo", Snackbar.LENGTH_LONG).show()
         }
 
         binding.loginBtn.setOnClickListener {
@@ -66,8 +66,6 @@ open class LoginActivity : AppCompatActivity() {
     protected fun login(user: User){
         Log.i(tag, "login checking all pass")
 
-//        val userJson = sharedPreferences.getString(user.username, "")
-//        val user = Gson().fromJson(userJson, User::class.java)
         val intent = Intent(this@LoginActivity, MainActivity::class.java)
         intent.putExtra("USER", user.username)
         startActivity(intent)

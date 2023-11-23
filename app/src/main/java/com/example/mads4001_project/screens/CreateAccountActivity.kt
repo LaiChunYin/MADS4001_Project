@@ -40,7 +40,7 @@ class CreateAccountActivity : LoginActivity() {
             Log.i(tag, "new user ${username}, ${password}, ${confirmPassword}, ${userType}")
 
             // configure shared preferences
-            this.sharedPreferences = getSharedPreferences("MY_APP_PREFS",
+            this.sharedPreferences = getSharedPreferences("USERS",
                 AppCompatActivity.MODE_PRIVATE
             )
 
@@ -81,7 +81,7 @@ class CreateAccountActivity : LoginActivity() {
         Log.i(tag, "creating account $username, $password $userType")
         val newUser = User(username, password, userType)
 
-        saveDataToSharedPref(this, username, newUser, true)
+        saveDataToSharedPref(this, "USERS", username, newUser, true)
 
         login(newUser)
     }

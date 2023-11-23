@@ -15,6 +15,12 @@
         android:theme="@style/Theme.MADS4001_Project"
         tools:targetApi="31">
         <activity
+            android:name=".screens.LandlordPropertiesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".screens.AddPropertyActivity"
+            android:exported="false" />
+        <activity
             android:name=".screens.PropertyDetailActivity"
             android:exported="false" />
         <activity
@@ -31,6 +37,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

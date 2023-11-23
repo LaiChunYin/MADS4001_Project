@@ -11,7 +11,6 @@ class Property(
     val type: String,
     val owner: Owner,
     val description: String,
-    val numOfRooms: Int,
     val numOfBedrooms: Int,
     val numOfKitchens: Int,
     val numOfBathrooms: Int,
@@ -33,7 +32,7 @@ class Property(
     }
 
     override fun toString(): String {
-        return "Property is $address, $type, $description, $numOfKitchens, $numOfBedrooms, $numOfBathrooms, $numOfRooms, $availableForRent, $imageUrl"
+        return "Property is $address, $type, $description, $numOfKitchens, $numOfBedrooms, $numOfBathrooms, $availableForRent, $imageUrl"
     }
 
     override fun equals(other: Any?): Boolean {
@@ -48,7 +47,6 @@ class Property(
     private fun matchesNumericQuery(query: String): Boolean {
         val queryAsNumber = query.toIntOrNull()
         return queryAsNumber != null && (
-                numOfRooms == queryAsNumber ||
                 numOfBedrooms == queryAsNumber ||
                 numOfKitchens == queryAsNumber ||
                 numOfBathrooms == queryAsNumber)

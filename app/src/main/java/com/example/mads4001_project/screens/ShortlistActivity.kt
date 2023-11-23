@@ -29,7 +29,7 @@ class ShortlistActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 //        // configure shared preferences
-//        this.sharedPreferences = getSharedPreferences("MY_APP_PREFS", MODE_PRIVATE)
+//        this.sharedPreferences = getSharedPreferences("USER", MODE_PRIVATE)
 //        this.prefEditor = this.sharedPreferences.edit()
 
         setSupportActionBar(this.binding.menuToolbar)

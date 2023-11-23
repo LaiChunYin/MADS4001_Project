@@ -36,7 +36,7 @@ class PropertyAdapter(private var properties: MutableList<Property>, private var
         fun bind(property: Property, context: Context, pos: Int) {
             Log.i(tag, "in bind ${loggedInUser}, ${this@PropertyAdapter.loggedInUser}")
 //            // configure shared preferences
-//            this@PropertyAdapter.sharedPreferences = context.getSharedPreferences("MY_APP_PREFS", AppCompatActivity.MODE_PRIVATE)
+//            this@PropertyAdapter.sharedPreferences = context.getSharedPreferences("USERS", AppCompatActivity.MODE_PRIVATE)
 //            this@PropertyAdapter.prefEditor = this@PropertyAdapter.sharedPreferences.edit()
 
             Log.i(tag, "in adapter ${loggedInUser}")
@@ -63,11 +63,11 @@ class PropertyAdapter(private var properties: MutableList<Property>, private var
 //            this.binding.propertyImage.setImageResource(res)
 
             Log.i(tag, "before change btn ${shortlistedProperties.contains(property.address)}, ${shortlistedProperties}, ${property}")
-            if(loggedInUser != null && shortlistedProperties.contains(property.address)){
+            if(loggedInUser != null && loggedInUser?.userType == "Tenant" && shortlistedProperties.contains(property.address)){
                 binding.removeBtn.visibility = View.VISIBLE
                 binding.shortListBtn.visibility = View.GONE
             }
-            else if(loggedInUser != null){
+            else if(loggedInUser != null && loggedInUser?.userType == "Tenant"){
                 binding.shortListBtn.visibility = View.VISIBLE
                 binding.removeBtn.visibility = View.GONE
             }
@@ -87,7 +87,7 @@ class PropertyAdapter(private var properties: MutableList<Property>, private var
                 }
                 else {
                     Log.i(tag, "no one logged in")
-                    Snackbar.make(binding.root, "Please login before viewing the property details.", Snackbar.LENGTH_LONG).show()
+//                    Snackbar.make(binding.root, "Please login before viewing the property details.", Snackbar.LENGTH_LONG).show()
 
                     val intent = Intent(context, LoginActivity::class.java)
                     intent.putExtra("REFERER", "MainActivity")
@@ -105,7 +105,7 @@ class PropertyAdapter(private var properties: MutableList<Property>, private var
                 Log.i(tag, "before added to list ${loggedInUser}")
                 loggedInUser!!.shortlistedProperties.add(property)
                 Log.i(tag, "after added to list ${loggedInUser}")
-                saveDataToSharedPref(context, loggedInUser!!.username, loggedInUser!!, true)
+                saveDataToSharedPref(context, "USERS", loggedInUser!!.username, loggedInUser!!, true)
 
                 if(showShortlistOnly) {
                     properties = loggedInUser!!.shortlistedProperties
@@ -131,7 +131,7 @@ class PropertyAdapter(private var properties: MutableList<Property>, private var
                 }
 //                loggedInUser!!.shortlistedProperties.removeAt(pos)
                 Log.i(tag, "after remove $pos from list ${loggedInUser}")
-                saveDataToSharedPref(context, loggedInUser!!.username, loggedInUser!!, true)
+                saveDataToSharedPref(context, "USERS", loggedInUser!!.username, loggedInUser!!, true)
 
                 if(showShortlistOnly){
                     properties = loggedInUser!!.shortlistedProperties
