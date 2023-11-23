@@ -50,6 +50,5 @@ class LandlordPropertyAdapter(
         val tvDetail = holder.itemView.findViewById<TextView>(R.id.tvDetail)
         tvDetail.text = currProperty.type
 
-
     }
 }

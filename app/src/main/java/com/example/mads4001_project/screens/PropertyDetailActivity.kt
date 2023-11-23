@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.IBinder.DeathRecipient
 import android.util.Log
+import android.view.View
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 //import com.bumptech.glide.Glide
@@ -52,6 +53,25 @@ class PropertyDetailActivity : AppCompatActivity() {
                 val imageName = property.imageUrl ?: "default_image"
                 val res = resources.getIdentifier(imageName, "drawable", this.packageName)
                 this.binding.propertyImage.setImageResource(res)
+            }
+
+            // Set the availability tag
+            with(binding.propertyAvailabilityTag) {
+                text = if (property.availableForRent) {
+                    getString(R.string.available) // "Available" string resource
+                } else {
+                    getString(R.string.not_available) // "Not Available" string resource
+                }
+
+                // Set background color depending on availability
+                setBackgroundResource(if (property.availableForRent) {
+                    R.drawable.available_tag_background // Green background drawable
+                } else {
+                    R.drawable.not_available_tag_background // Red background drawable
+                })
+
+                // Ensure the tag is visible
+                visibility = View.VISIBLE
             }
 
         }

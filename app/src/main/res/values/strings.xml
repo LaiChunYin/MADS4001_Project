@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MADS4001_Project</string>
+    <string name="available">Available</string>
+    <string name="not_available">Not Available</string>
 </resources>
