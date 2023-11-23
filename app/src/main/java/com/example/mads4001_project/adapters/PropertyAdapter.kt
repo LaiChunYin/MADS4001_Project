@@ -123,6 +123,7 @@ class PropertyAdapter(private var properties: MutableList<Property>, private var
                     if(loggedInUser!!.shortlistedProperties[i].equals(property)){
                         Log.i(tag, "removed property $property from ${loggedInUser!!.shortlistedProperties[i]}")
                         loggedInUser!!.shortlistedProperties.removeAt(i)
+                        break
                     }
                 }
 //                loggedInUser!!.shortlistedProperties.removeAt(pos)
