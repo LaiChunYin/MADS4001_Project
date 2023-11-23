@@ -130,6 +130,13 @@ open class MainActivity : AppCompatActivity() {
                     return true
                 }
             }
+            R.id.logout -> {
+                val intent = Intent(this, MainActivity::class.java)
+                intent.putExtra("USER", "")
+                intent.putExtra("REFERER", "MainActivity")
+                startActivity(intent)
+                return true
+            }
             // for testing only. Remove this later
             R.id.delete_users -> {
                 this.sharedPreferences = getSharedPreferences("USERS", MODE_PRIVATE)
@@ -147,13 +154,6 @@ open class MainActivity : AppCompatActivity() {
                 prefEditor.clear()
                 prefEditor.apply()
                 Snackbar.make(binding.root, "property erased!", Snackbar.LENGTH_LONG).show()
-                return true
-            }
-            R.id.logout -> {
-                val intent = Intent(this, MainActivity::class.java)
-                intent.putExtra("USER", "")
-                intent.putExtra("REFERER", "MainActivity")
-                startActivity(intent)
                 return true
             }
             else -> {

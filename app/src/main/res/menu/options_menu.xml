@@ -13,12 +13,14 @@
     <item
         android:id="@+id/delete_users"
         android:orderInCategory="300"
-        android:title="Delete all Account (remove this later)" />
+        android:visible="false"
+        android:title="Delete all Account (for development)" />
 
     <item
         android:id="@+id/delete_properties"
         android:orderInCategory="400"
-        android:title="Clear All Property (remove this later)" />
+        android:visible="false"
+        android:title="Clear All Property (for development)" />
 
     <item
         android:id="@+id/logout"
