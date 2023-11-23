@@ -19,6 +19,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DiffUtil
 import com.bumptech.glide.Glide
+import com.example.mads4001_project.R
 import com.example.mads4001_project.utils.getLoggedInUser
 import com.example.mads4001_project.utils.prefEditor
 import com.example.mads4001_project.utils.saveDataToSharedPref
@@ -137,6 +138,20 @@ class PropertyAdapter(private var properties: MutableList<Property>, private var
                     properties = loggedInUser!!.shortlistedProperties
                 }
                 this@PropertyAdapter.notifyDataSetChanged()
+            }
+
+            // Set the availability tag based on the availableForRent property
+            val availabilityTag = binding.propertyAvailabilityTag
+            if (property.availableForRent) {
+                // Property is available
+                availabilityTag.text = context.getString(R.string.available)
+                availabilityTag.visibility = View.VISIBLE
+                availabilityTag.setBackgroundResource(R.drawable.available_tag_background) // Green background for available
+            } else {
+                // Property is not available
+                availabilityTag.text = context.getString(R.string.not_available)
+                availabilityTag.visibility = View.VISIBLE
+                availabilityTag.setBackgroundResource(R.drawable.not_available_tag_background) // Red background for not available
             }
         }
     }
