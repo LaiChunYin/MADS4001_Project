@@ -1,6 +1,10 @@
 package com.example.mads4001_project.models
 
+import android.util.Log
+import java.io.Serializable
+
 class Property(
+    val address: String,
     val type: String,
     val owner: Owner,
     val description: String,
@@ -9,7 +13,8 @@ class Property(
     val numOfKitchens: Int,
     val numOfBathrooms: Int,
     val availableForRent: Boolean,
-) {
+    val imageUrl: String? = null
+): Serializable {
     fun matchesQuery(query: String): Boolean {
         // Convert the query to lowercase for case-insensitive comparison
         val lowerCaseQuery = query.lowercase()
@@ -35,5 +40,17 @@ class Property(
 
         // If none of the fields match, return false
         return false
+    }
+
+    override fun toString(): String {
+        return "Property is $address, $type, $description, $numOfKitchens, $numOfBedrooms, $numOfBathrooms, $numOfRooms, $availableForRent, $imageUrl"
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if(this === other) return true
+        if(other !is Property) return false
+        if(this.address != other.address) return false
+
+        return true
     }
 }

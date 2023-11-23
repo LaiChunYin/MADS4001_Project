@@ -13,6 +13,12 @@
         android:theme="@style/Theme.MADS4001_Project"
         tools:targetApi="31">
         <activity
+            android:name=".screens.PropertyDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".screens.CreateAccountActivity"
+            android:exported="false" />
+        <activity
             android:name=".screens.ShortlistActivity"
             android:exported="false" />
         <activity

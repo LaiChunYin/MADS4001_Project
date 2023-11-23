@@ -7,6 +7,7 @@
     android:padding="8dp">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/property_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         card_view:cardCornerRadius="4dp"
@@ -21,28 +22,58 @@
 
             <!-- ImageView for property image -->
             <ImageView
-                android:id="@+id/propertyImageView"
+                android:id="@+id/property_image"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:scaleType="centerCrop" />
 <!--                android:src="@drawable/ic_home_black_24dp" -->
                  <!-- Replace with a proper drawable resource -->
 
-            <!-- TextView for property title -->
-            <TextView
-                android:id="@+id/propertyTitleTextView"
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:textSize="18sp"
-                android:text="Property Title" />
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="100">
+                    <!-- TextView for property title -->
+                    <TextView
+                        android:id="@+id/property_title_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textSize="18sp"
+                        android:text="Property Title" />
+
+                    <TextView
+                        android:id="@+id/property_description_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Property Description" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/short_list_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Add To List"
+                    android:visibility="gone"
+                    android:layout_weight="1"/>
+                <Button
+                    android:id="@+id/remove_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Remove From List"
+                    android:visibility="gone"
+                    android:layout_weight="1"/>
+            </LinearLayout>
 
             <!-- TextView for property description -->
-            <TextView
-                android:id="@+id/propertyDescriptionTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Property Description" />
+
 
         </LinearLayout>
 
