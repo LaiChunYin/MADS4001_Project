@@ -189,7 +189,7 @@ open class MainActivity : AppCompatActivity() {
                 city = "Metropolis",
                 postalCode = "12345",
                 availableForRent = true,
-                imageUrl = "https://thumbor.forbes.com/thumbor/fit-in/1290x/https://www.forbes.com/advisor/wp-content/uploads/2022/10/condo-vs-apartment.jpeg.jpg"  // Sample image URL
+                imageUrl = "https://thumbor.forbes.com/thumbor/fit-in/1290x/https://www.forbes.com/advisor/wp-content/uploads/2022/10/condo-vs-apartment.jpeg.jpg"
             ),
             Property(
                 type = "House",
@@ -202,7 +202,7 @@ open class MainActivity : AppCompatActivity() {
                 city = "Springfield",
                 postalCode = "67890",
                 availableForRent = true,
-                imageUrl = "https://www.trulia.com/pictures/thumbs_5/zillowstatic/fp/6fb8604d0f16bf8c22ea266d19bc7ccf-full.webp"  // Sample image URL
+                imageUrl = "https://www.trulia.com/pictures/thumbs_5/zillowstatic/fp/6fb8604d0f16bf8c22ea266d19bc7ccf-full.webp"
             ),
             Property(
                 type = "Apartment",
@@ -215,9 +215,87 @@ open class MainActivity : AppCompatActivity() {
                 city = "Riverdale",
                 postalCode = "10111",
                 availableForRent = false,
-                imageUrl = "https://www.trulia.com/pictures/thumbs_6/zillowstatic/fp/5aa7dd68c2f6536683aaac7ad6f9b99d-full.webp"  // Sample image URL
-            )
-            // Add more properties as needed
+                imageUrl = "https://www.trulia.com/pictures/thumbs_6/zillowstatic/fp/5aa7dd68c2f6536683aaac7ad6f9b99d-full.webp"
+            ),
+            Property(
+            type = "House",
+            owner = sampleOwner,
+            description = "Cozy suburban house with a beautiful garden and a family-friendly neighborhood.",
+            numOfBedrooms = 3,
+            numOfKitchens = 1,
+            numOfBathrooms = 2,
+            address = "202 Maple Lane, Pleasantville",
+            city = "Pleasantville",
+            postalCode = "30002",
+            availableForRent = false,
+            imageUrl = "https://www.bankrate.com/2022/07/20093642/what-is-house-poor.jpg?auto=webp&optimize=high&crop=16:9&width=912"
+            ),
+            Property(
+            type = "Apartment",
+            owner = sampleOwner,
+            description = "Stylish downtown apartment with easy access to nightlife and public transport.",
+            numOfBedrooms = 2,
+            numOfKitchens = 1,
+            numOfBathrooms = 1,
+            address = "303 City Center Ave, Metropolis",
+            city = "Metropolis",
+            postalCode = "40003",
+            availableForRent = true,
+            imageUrl = "https://pqnk.com/wp-content/uploads/2021/07/SW-perspective-50-percent-transparency.png"
+            ),
+            Property(
+            type = "House",
+            owner = sampleOwner,
+            description = "Traditional house in a historical neighborhood, featuring a large porch and backyard.",
+            numOfBedrooms = 4,
+            numOfKitchens = 1,
+            numOfBathrooms = 3,
+            address = "404 Heritage Road, Oldtown",
+            city = "Oldtown",
+            postalCode = "50004",
+            availableForRent = true,
+            imageUrl = "https://www.zolo.ca/blog/wp-content/uploads/2018/03/large-home-with-vibrant-landscaping-1024x576.jpeg"
+            ),
+            Property(
+            type = "Condo",
+            owner = sampleOwner,
+            description = "Modern waterfront condo with panoramic ocean views and high-end finishes.",
+            numOfBedrooms = 2,
+            numOfKitchens = 1,
+            numOfBathrooms = 2,
+            address = "505 Seaside Blvd, Bay City",
+            city = "Bay City",
+            postalCode = "60005",
+            availableForRent = false,
+            imageUrl = "https://blog.remax.ca/wp-content/uploads/sites/8/2019/02/condo-690x518.jpg?resize=600,450"
+             ),
+            Property(
+            type = "Apartment",
+            owner = sampleOwner,
+            description = "Compact and efficient apartment in a vibrant and trendy neighborhood.",
+            numOfBedrooms = 1,
+            numOfKitchens = 1,
+            numOfBathrooms = 1,
+            address = "606 Downtown Ave, Night City",
+            city = "Night City",
+            postalCode = "70006",
+            availableForRent = true,
+            imageUrl = "https://wp-cpr.s3.amazonaws.com/uploads/2023/07/Creekwalk-Apartments.png?resize=2064,1376"
+             ),
+            Property(
+            type = "House",
+            owner = sampleOwner,
+            description = "Spacious country house with a large garden and serene natural surroundings.",
+            numOfBedrooms = 5,
+            numOfKitchens = 1,
+            numOfBathrooms = 4,
+            address = "707 Countryside Lane, Greenfield",
+            city = "Greenfield",
+            postalCode = "80007",
+            availableForRent = true,
+            imageUrl = "https://i.pinimg.com/564x/1a/16/2c/1a162ca2f756d8417c6e8cc977bc7fbc.jpg"
+        )
+
         )
 
         // show the properties added by the landlords
