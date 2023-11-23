@@ -37,6 +37,108 @@
         android:padding="16dp"
         android:text="Search"/>
 
+    <LinearLayout
+        android:layout_below="@+id/linear"
+        android:id="@+id/linear_category"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:elevation="10dp"
+        android:background="@color/light_grey">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:layout_margin="4dp">
+
+            <ImageView
+                android:id="@+id/condo_image"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/condo"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/condo_image"
+                android:layout_alignStart="@+id/condo_image"
+                android:layout_alignEnd="@+id/condo_image"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="16dp"
+                android:maxLines="1"
+                android:text="Condo"
+                android:textStyle="bold"
+                android:textSize="16sp"/>
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:layout_margin="4dp">
+
+            <ImageView
+                android:id="@+id/house_image"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/house"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/house_image"
+                android:layout_alignStart="@+id/house_image"
+                android:layout_alignEnd="@+id/house_image"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="16dp"
+                android:maxLines="1"
+                android:text="House"
+                android:textStyle="bold"
+                android:textSize="16sp"/>
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:layout_margin="4dp">
+
+            <ImageView
+                android:id="@+id/apartment_image"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/apartment"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/apartment_image"
+                android:layout_alignStart="@+id/apartment_image"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="24dp"
+                android:maxLines="1"
+                android:text="Apartment"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/propertiesRecyclerView"
         android:layout_width="match_parent"

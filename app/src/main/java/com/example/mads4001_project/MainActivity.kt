@@ -53,6 +53,24 @@ class MainActivity : AppCompatActivity() {
         binding.searchButton.setOnClickListener {
             performSearch(binding.searchEditText.text.toString())
         }
+
+        binding.condoImage.setOnClickListener {
+            triggerSearchWithType("Condo")
+        }
+
+        binding.houseImage.setOnClickListener {
+            triggerSearchWithType("House")
+        }
+
+        binding.apartmentImage.setOnClickListener {
+            triggerSearchWithType("Apartment")
+        }
+    }
+
+    // Function to trigger search with type
+    private fun triggerSearchWithType(type: String) {
+        binding.searchEditText.setText(type)
+        performSearch(type)
     }
 
     override fun onResume() {
