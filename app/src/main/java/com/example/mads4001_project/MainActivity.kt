@@ -52,6 +52,11 @@ open class MainActivity : AppCompatActivity() {
         setSupportActionBar(this.binding.menuToolbar)
         supportActionBar?.setDisplayShowTitleEnabled(true)
 
+        val justLoggedOut = (this.intent.getStringExtra("REFERER") ?: null) == "MainActivity"
+        if(justLoggedOut){
+            Snackbar.make(binding.root, "Logout Successful", Snackbar.LENGTH_LONG).show()
+        }
+
         propertiesToBeDisplayed.addAll(allProperties)
         Log.i(tag, "on create ${loggedInUser}")
         propertyAdapter = PropertyAdapter(propertiesToBeDisplayed, loggedInUser?.username ?: "", false)
@@ -154,6 +159,13 @@ open class MainActivity : AppCompatActivity() {
                 Snackbar.make(binding.root, "property erased!", Snackbar.LENGTH_LONG).show()
                 return true
             }
+            R.id.logout -> {
+                val intent = Intent(this, MainActivity::class.java)
+                intent.putExtra("USER", "")
+                intent.putExtra("REFERER", "MainActivity")
+                startActivity(intent)
+                return true
+            }
             else -> {
                 Log.i(tag, "delete this, item is $item")
                 super.onOptionsItemSelected(item)
@@ -189,7 +201,8 @@ open class MainActivity : AppCompatActivity() {
                 city = "Metropolis",
                 postalCode = "12345",
                 availableForRent = true,
-                imageUrl = "https://thumbor.forbes.com/thumbor/fit-in/1290x/https://www.forbes.com/advisor/wp-content/uploads/2022/10/condo-vs-apartment.jpeg.jpg"
+                imageUrl = "condo"
+//                imageUrl = "https://thumbor.forbes.com/thumbor/fit-in/1290x/https://www.forbes.com/advisor/wp-content/uploads/2022/10/condo-vs-apartment.jpeg.jpg"
             ),
             Property(
                 type = "House",
@@ -202,7 +215,8 @@ open class MainActivity : AppCompatActivity() {
                 city = "Springfield",
                 postalCode = "67890",
                 availableForRent = true,
-                imageUrl = "https://www.trulia.com/pictures/thumbs_5/zillowstatic/fp/6fb8604d0f16bf8c22ea266d19bc7ccf-full.webp"
+                imageUrl = "house"
+//                imageUrl = "https://www.trulia.com/pictures/thumbs_5/zillowstatic/fp/6fb8604d0f16bf8c22ea266d19bc7ccf-full.webp"
             ),
             Property(
                 type = "Apartment",
@@ -215,7 +229,8 @@ open class MainActivity : AppCompatActivity() {
                 city = "Riverdale",
                 postalCode = "10111",
                 availableForRent = false,
-                imageUrl = "https://www.trulia.com/pictures/thumbs_6/zillowstatic/fp/5aa7dd68c2f6536683aaac7ad6f9b99d-full.webp"
+                imageUrl = "apartment"
+//                imageUrl = "https://www.trulia.com/pictures/thumbs_6/zillowstatic/fp/5aa7dd68c2f6536683aaac7ad6f9b99d-full.webp"
             ),
             Property(
             type = "House",
@@ -228,7 +243,8 @@ open class MainActivity : AppCompatActivity() {
             city = "Pleasantville",
             postalCode = "30002",
             availableForRent = false,
-            imageUrl = "https://www.bankrate.com/2022/07/20093642/what-is-house-poor.jpg?auto=webp&optimize=high&crop=16:9&width=912"
+            imageUrl = "house_2"
+//            imageUrl = "https://www.bankrate.com/2022/07/20093642/what-is-house-poor.jpg?auto=webp&optimize=high&crop=16:9&width=912"
             ),
             Property(
             type = "Apartment",
@@ -241,7 +257,8 @@ open class MainActivity : AppCompatActivity() {
             city = "Metropolis",
             postalCode = "40003",
             availableForRent = true,
-            imageUrl = "https://pqnk.com/wp-content/uploads/2021/07/SW-perspective-50-percent-transparency.png"
+            imageUrl = "apartment_2"
+//            imageUrl = "https://pqnk.com/wp-content/uploads/2021/07/SW-perspective-50-percent-transparency.png"
             ),
             Property(
             type = "House",
@@ -254,7 +271,8 @@ open class MainActivity : AppCompatActivity() {
             city = "Oldtown",
             postalCode = "50004",
             availableForRent = true,
-            imageUrl = "https://www.zolo.ca/blog/wp-content/uploads/2018/03/large-home-with-vibrant-landscaping-1024x576.jpeg"
+            imageUrl = "house_2"
+//            imageUrl = "https://www.zolo.ca/blog/wp-content/uploads/2018/03/large-home-with-vibrant-landscaping-1024x576.jpeg"
             ),
             Property(
             type = "Condo",
@@ -267,7 +285,8 @@ open class MainActivity : AppCompatActivity() {
             city = "Bay City",
             postalCode = "60005",
             availableForRent = false,
-            imageUrl = "https://blog.remax.ca/wp-content/uploads/sites/8/2019/02/condo-690x518.jpg?resize=600,450"
+            imageUrl = "condo_3"
+//            imageUrl = "https://blog.remax.ca/wp-content/uploads/sites/8/2019/02/condo-690x518.jpg?resize=600,450"
              ),
             Property(
             type = "Apartment",
@@ -280,7 +299,8 @@ open class MainActivity : AppCompatActivity() {
             city = "Night City",
             postalCode = "70006",
             availableForRent = true,
-            imageUrl = "https://wp-cpr.s3.amazonaws.com/uploads/2023/07/Creekwalk-Apartments.png?resize=2064,1376"
+            imageUrl = "apartment_3"
+//            imageUrl = "https://wp-cpr.s3.amazonaws.com/uploads/2023/07/Creekwalk-Apartments.png?resize=2064,1376"
              ),
             Property(
             type = "House",
@@ -293,7 +313,8 @@ open class MainActivity : AppCompatActivity() {
             city = "Greenfield",
             postalCode = "80007",
             availableForRent = true,
-            imageUrl = "https://i.pinimg.com/564x/1a/16/2c/1a162ca2f756d8417c6e8cc977bc7fbc.jpg"
+            imageUrl = "house_3"
+//            imageUrl = "https://i.pinimg.com/564x/1a/16/2c/1a162ca2f756d8417c6e8cc977bc7fbc.jpg"
         )
 
         )

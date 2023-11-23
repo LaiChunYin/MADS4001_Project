@@ -18,7 +18,7 @@ import android.content.SharedPreferences
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DiffUtil
-import com.bumptech.glide.Glide
+//import com.bumptech.glide.Glide
 import com.example.mads4001_project.utils.getLoggedInUser
 import com.example.mads4001_project.utils.prefEditor
 import com.example.mads4001_project.utils.saveDataToSharedPref
@@ -55,12 +55,12 @@ class PropertyAdapter(private var properties: MutableList<Property>, private var
             binding.propertyDescriptionTextView.text = property.description
             binding.propertyAddressTextView.text = property.address
             binding.propertyCityPostalTextView.text = "${property.city}, ${property.postalCode}"
-            Glide.with(binding.root.context).load(property.imageUrl).into(binding.propertyImage)  // for online images
+//            Glide.with(binding.root.context).load(property.imageUrl).into(binding.propertyImage)  // for online images
 
-//            val imageName = property.imageUrl
-//            Log.i(tag, "image url is $imageName")
-//            val res = context.resources.getIdentifier(imageName, "drawable", context.packageName)
-//            this.binding.propertyImage.setImageResource(res)
+            val imageName = property.imageUrl ?: "default_image"
+            Log.i(tag, "image url is $imageName")
+            val res = context.resources.getIdentifier(imageName, "drawable", context.packageName)
+            this.binding.propertyImage.setImageResource(res)
 
             Log.i(tag, "before change btn ${shortlistedProperties.contains(property.address)}, ${shortlistedProperties}, ${property}")
             if(loggedInUser != null && loggedInUser?.userType == "Tenant" && shortlistedProperties.contains(property.address)){
