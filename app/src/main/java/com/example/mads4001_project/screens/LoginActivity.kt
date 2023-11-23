@@ -32,7 +32,7 @@ open class LoginActivity : AppCompatActivity() {
         if(isFromMain){
             Log.i(tag, "login needed")
             this@LoginActivity.intent.removeExtra("REFERER")
-            Snackbar.make(binding.root, "Please login for further actions.Lo", Snackbar.LENGTH_LONG).show()
+            Snackbar.make(binding.root, "Please login for further actions.", Snackbar.LENGTH_LONG).show()
         }
 
         binding.loginBtn.setOnClickListener {

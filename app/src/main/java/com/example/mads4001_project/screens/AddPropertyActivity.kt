@@ -156,36 +156,25 @@ class AddPropertyActivity : AppCompatActivity() {
                 bathrooms!!,
                 availableForRent!!
             )
+
+//            if(checkDuplicatedProperty(propertyToEdit, this)){
+//                Snackbar.make(binding.addPropertyParentLayout, "Property already exist!!", Snackbar.LENGTH_LONG).show()
+//                return
+//            }
             savedProperties[index] = propertyToEdit
-
-            var propertyAlreadyExist = checkDuplicatedProperty(propertyToEdit, this)
-            Log.i(tag, "property already exist ${propertyAlreadyExist}")
-            if(propertyAlreadyExist){
-                Snackbar.make(binding.addPropertyParentLayout, "Property already exist!!", Snackbar.LENGTH_LONG).show()
-                return
-            }
-
-            saveDataToSharedPref(this, "PROPERTIES", loggedInUserName, savedProperties, true)
-            Snackbar.make(binding.addPropertyParentLayout, "Data Saved to SharedPrefs", Snackbar.LENGTH_LONG).show()
-            finish()
         }
         // create new property
         else {
             var propertyToAdd = Property(address!!, city!!, postalCode!!, type!!, owner, desc!!, bedrooms!!, kitchens!!, bathrooms!!, availableForRent!!)
-            var propertyAlreadyExist = checkDuplicatedProperty(propertyToAdd, this)
-            Log.i(tag, "prop already exist ${propertyAlreadyExist}")
-            if(propertyAlreadyExist){
+            if(checkDuplicatedProperty(propertyToAdd, this)){
                 Snackbar.make(binding.addPropertyParentLayout, "Property already exist!!", Snackbar.LENGTH_LONG).show()
                 return
             }
-
             savedProperties.add(propertyToAdd)
-
-            saveDataToSharedPref(this, "PROPERTIES", loggedInUserName, savedProperties, true)
-            Snackbar.make(binding.addPropertyParentLayout, "Data Saved to SharedPrefs", Snackbar.LENGTH_LONG).show()
-            finish()
-
         }
+        saveDataToSharedPref(this, "PROPERTIES", loggedInUserName, savedProperties, true)
+        Snackbar.make(binding.addPropertyParentLayout, "Data Saved to SharedPrefs", Snackbar.LENGTH_LONG).show()
+        finish()
     }
 
 }

@@ -155,16 +155,6 @@
             android:text="Is Available for rent?"
             android:textSize="20sp" />
 
-        <Button
-            android:id="@+id/cancel_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Cancel"
-            android:background="@color/button_color"
-            android:textColor="@android:color/white"
-            android:padding="12dp"
-            android:layout_marginBottom="16dp"/>
-
         <!-- Save Button -->
         <Button
             android:id="@+id/save_btn"
@@ -175,5 +165,16 @@
             android:textColor="@android:color/white"
             android:padding="12dp"
             android:layout_marginBottom="16dp"/>
+
+        <Button
+            android:id="@+id/cancel_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:background="@color/button_color"
+            android:textColor="@android:color/white"
+            android:padding="12dp"
+            android:layout_marginBottom="16dp"/>
+
     </LinearLayout>
 </ScrollView>
