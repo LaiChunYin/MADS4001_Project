@@ -48,7 +48,6 @@ class MainActivity : AppCompatActivity() {
         Log.i(tag, "on create ${loggedInUser}")
         propertyAdapter = PropertyAdapter(properties, loggedInUser?.username ?: "", false)
 
-
         binding.propertiesRecyclerView.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
             adapter = propertyAdapter
@@ -89,6 +88,9 @@ class MainActivity : AppCompatActivity() {
             }
             // for testing only. Remove this later
             R.id.delete_users -> {
+                this.sharedPreferences = getSharedPreferences("MY_APP_PREFS", MODE_PRIVATE)
+                this.prefEditor = this.sharedPreferences.edit()
+
                 prefEditor.clear()
                 prefEditor.apply()
                 Snackbar.make(binding.root, "Data erased!", Snackbar.LENGTH_LONG).show()
@@ -107,14 +109,13 @@ class MainActivity : AppCompatActivity() {
         val filteredProperties = properties.filter { property ->
             property.matchesQuery(query)
         }
-        propertyAdapter.updateProperties(filteredProperties)
+        propertyAdapter.setProperties(filteredProperties)
     }
 
+
     private fun initializeProperties(): MutableList<Property> {
-        // Sample owner
         val sampleOwner = Owner("John Doe", "johndoe@example.com", "+123456789")
 
-        // Sample list of properties
         val sampleProperties = mutableListOf(
             Property(
                 type = "Condo",
@@ -124,9 +125,11 @@ class MainActivity : AppCompatActivity() {
                 numOfBedrooms = 2,
                 numOfKitchens = 1,
                 numOfBathrooms = 2,
-                address = "123 Road",
+                address = "123 Main St, Metropolis",
+                city = "Metropolis",
+                postalCode = "12345",
                 availableForRent = true,
-                imageUrl = "condo"
+                imageUrl = "https://thumbor.forbes.com/thumbor/fit-in/1290x/https://www.forbes.com/advisor/wp-content/uploads/2022/10/condo-vs-apartment.jpeg.jpg"  // Sample image URL
             ),
             Property(
                 type = "House",
@@ -136,9 +139,11 @@ class MainActivity : AppCompatActivity() {
                 numOfBedrooms = 4,
                 numOfKitchens = 1,
                 numOfBathrooms = 3,
-                address = "456 Road",
+                address = "456 Maple Ave, Springfield",
+                city = "Springfield",
+                postalCode = "67890",
                 availableForRent = true,
-                imageUrl = "house"
+                imageUrl = "https://www.trulia.com/pictures/thumbs_5/zillowstatic/fp/6fb8604d0f16bf8c22ea266d19bc7ccf-full.webp"  // Sample image URL
             ),
             Property(
                 type = "Apartment",
@@ -148,9 +153,11 @@ class MainActivity : AppCompatActivity() {
                 numOfBedrooms = 1,
                 numOfKitchens = 1,
                 numOfBathrooms = 1,
-                address = "789 Road",
+                address = "789 River Rd, Riverdale",
+                city = "Riverdale",
+                postalCode = "10111",
                 availableForRent = false,
-                imageUrl = "apartment"
+                imageUrl = "https://www.trulia.com/pictures/thumbs_6/zillowstatic/fp/5aa7dd68c2f6536683aaac7ad6f9b99d-full.webp"  // Sample image URL
             )
             // Add more properties as needed
         )

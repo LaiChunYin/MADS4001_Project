@@ -17,6 +17,8 @@ import com.google.gson.Gson
 import android.content.SharedPreferences
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.DiffUtil
+import com.bumptech.glide.Glide
 import com.example.mads4001_project.utils.getLoggedInUser
 import com.example.mads4001_project.utils.prefEditor
 import com.example.mads4001_project.utils.saveDataToSharedPref
@@ -30,6 +32,12 @@ class PropertyAdapter(private var properties: MutableList<Property>, private var
     private val shortlistedProperties: MutableList<String> = mutableListOf()
     private val tag = "Property Adapter"
 
+    fun setProperties(newProperties: List<Property>) {
+        val diffResult = DiffUtil.calculateDiff(PropertyDiffCallback(properties, newProperties))
+        properties.clear()
+        properties.addAll(newProperties)
+        diffResult.dispatchUpdatesTo(this)
+    }
     inner class PropertyViewHolder(private val binding: ItemPropertyBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(property: Property, context: Context, pos: Int) {
             Log.i(tag, "in bind ${loggedInUser}, ${this@PropertyAdapter.loggedInUser}")
@@ -51,14 +59,15 @@ class PropertyAdapter(private var properties: MutableList<Property>, private var
             // Assuming you want to display the property type as the title
             binding.propertyTitleTextView.text = property.type
             binding.propertyDescriptionTextView.text = property.description
-            // Here you can set the other attributes of your property to different views, for example:
-            // binding.numOfRoomsTextView.text = property.numOfRooms.toString()
+            binding.propertyAddressTextView.text = property.address
+            binding.propertyCityPostalTextView.text = "${property.city}, ${property.postalCode}"
+            Glide.with(binding.root.context).load(property.imageUrl).into(binding.propertyImage)  // for online images
 
-            // If you have an image URL, you would load the image here. For example:
-            // Glide.with(binding.root.context).load(property.imageUrl).into(binding.propertyImageView)
-            val imageName = property.imageUrl
-            val res = context.resources.getIdentifier(imageName, "drawable", context.packageName)
-            this.binding.propertyImage.setImageResource(res)
+//            val imageName = property.imageUrl
+//            Log.i(tag, "image url is $imageName")
+//            val res = context.resources.getIdentifier(imageName, "drawable", context.packageName)
+//            this.binding.propertyImage.setImageResource(res)
+
             Log.i(tag, "before change btn ${shortlistedProperties.contains(property.address)}, ${shortlistedProperties}, ${property}")
             if(loggedInUser != null && shortlistedProperties.contains(property.address)){
                 binding.removeBtn.visibility = View.VISIBLE
@@ -160,4 +169,16 @@ class PropertyAdapter(private var properties: MutableList<Property>, private var
         notifyDataSetChanged()
     }
 
+    private class PropertyDiffCallback(
+        private val oldProperties: List<Property>,
+        private val newProperties: List<Property>
+    ) : DiffUtil.Callback() {
+        override fun getOldListSize(): Int = oldProperties.size
+        override fun getNewListSize(): Int = newProperties.size
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
+            oldProperties[oldItemPosition] == newProperties[newItemPosition]
+
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
+            oldProperties[oldItemPosition] == newProperties[newItemPosition]
+    }
 }
